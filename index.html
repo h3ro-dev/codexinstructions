@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding with Codex CLI – Step‑by‑Step Online Lesson</title>
+  <!-- Tailwind via CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+  <!-- Header -->
+  <header class="bg-indigo-600 text-white py-6 shadow-md sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <h1 class="text-2xl font-extrabold tracking-tight">Vibe Coding with Codex CLI</h1>
+      <nav class="flex gap-4 text-sm font-medium">
+        <a href="#overview" class="hover:underline">Overview</a>
+        <a href="#install" class="hover:underline">Install</a>
+        <a href="#first-run" class="hover:underline">First Run</a>
+        <a href="#mcp" class="hover:underline">Add MCP</a>
+        <a href="#practice" class="hover:underline">Practice</a>
+        <a href="#cheatsheet" class="hover:underline">Cheatsheet</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-10 space-y-16">
+    <!-- Overview -->
+    <section id="overview" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">1. What You’ll Build & Why</h2>
+      <p class="mb-3">This crash‑course shows <strong>complete beginners</strong> (a.k.a. <em>vibe coders</em>) how to:
+      </p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Install <code>Codex CLI</code> locally in under 5 minutes.</li>
+        <li>Launch an interactive chat in your terminal and “talk” your way to working code.</li>
+        <li>Add external super‑powers (web search, GitHub, DB access) via the <abbr title="Model Context Protocol">MCP</abbr>.</li>
+        <li>Ship your first AI‑generated feature <strong>without hand‑coding</strong>, just by describing what you want.</li>
+      </ul>
+      <p class="mt-4">Follow the purple <span class="font-bold text-indigo-600">► Do this now</span> prompts – they are the exact commands to paste. No prior Node, Git, or OpenAI experience required.</p>
+    </section>
+
+    <!-- Install -->
+    <section id="install" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">2. One‑Time Setup (≈ 5 min)</h2>
+      <ol class="list-decimal pl-6 space-y-4">
+        <li>
+          <p>
+            Install <strong>Node JS ≥ 18</strong> (skip if you already have it).<br>
+            <span class="text-indigo-600 font-bold">► Do this now</span> – Mac & Linux:<br>
+            <code class="bg-slate-100 p-1 rounded">brew install node</code>
+          </p>
+        </li>
+        <li>
+          <p>
+            Install <strong>Codex CLI</strong> globally:
+            <br><span class="text-indigo-600 font-bold">► Do this now</span>
+            <code class="block bg-slate-100 p-2 rounded break-words">npm install -g @openai/codex</code>
+          </p>
+        </li>
+        <li>
+          <p>Grab your <code>OPENAI_API_KEY</code> from <a href="https://platform.openai.com/account/api-keys" class="underline" target="_blank" rel="noopener">OpenAI dashboard</a> and export it:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre"># macOS / Linux / WSL
+export OPENAI_API_KEY="sk-..."</pre>
+          <p class="mt-2 text-sm text-slate-600">Windows PowerShell: <code>$Env:OPENAI_API_KEY="sk-..."</code></p>
+        </li>
+        <li>
+          <p>Create a fresh project folder and init <strong>Git</strong>:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">mkdir hello-vibe
+cd hello-vibe
+git init && git commit --allow-empty -m "🔰 start"</pre>
+        </li>
+      </ol>
+    </section>
+
+    <!-- First Run -->
+    <section id="first-run" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">3. Your First “Talk‑to‑Code” Session</h2>
+      <p class="mb-4">Let’s scaffold a tiny web API just by describing it.</p>
+      <ol class="list-decimal pl-6 space-y-4">
+        <li>
+          <p>Launch Codex in <em>Suggest</em> mode:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">codex</pre>
+        </li>
+        <li>
+          <p>At the prompt, paste:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">Create an Express.js server that says "✨ Hello, Vibe Coder!" on GET /</pre>
+          <p class="mt-2">Codex proposes file edits &amp; a command. Type <code>y</code> to approve each.</p>
+        </li>
+        <li>
+          <p>Run the server (Codex will suggest): <code class="bg-slate-100 px-1 rounded">node server.js</code>. Visit <code>http://localhost:3000</code> 🎉</p>
+        </li>
+      </ol>
+      <aside class="mt-6 p-4 bg-amber-100 rounded">
+        <h3 class="font-semibold mb-1">Heads‑Up: Approval Modes</h3>
+        <p class="text-sm">Start in <strong>Suggest</strong> ( default) so nothing runs without your OK. Switch later:<br>
+          • <code>-auto-edit</code> = auto apply file changes<br>
+          • <code>-full-auto</code> = run everything (sandboxed)</p>
+      </aside>
+    </section>
+
+    <!-- MCP -->
+    <section id="mcp" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">4. Super‑Power Up with MCP (Optional)</h2>
+      <p>MCP tools let Codex reach beyond your repo. We’ll add Brave Search so Codex can look things up.</p>
+      <ol class="list-decimal pl-6 space-y-4">
+        <li>
+          <p>Get a Brave Search API token (<a href="https://search.brave.com/api" class="underline" target="_blank" rel="noopener">sign up</a>).</p>
+        </li>
+        <li>
+          <p>Run the MCP server in a new terminal:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">BRAVE_SEARCH_TOKEN=xxx npx -y @modelcontextprotocol/server-brave</pre>
+        </li>
+        <li>
+          <p>Edit <code>~/.codex/config.yaml</code> (create if missing):</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">model: o3
+servers:
+  - type: stdio
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-brave"]
+</pre>
+        </li>
+        <li>
+          <p>Restart Codex. Ask:</p>
+          <pre class="bg-slate-100 p-3 rounded whitespace-pre">Search "express rate limit middleware" and add the best package to this project</pre>
+          <p>Watch Codex call the search tool, decide a package, edit <code>package.json</code>, and install it.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Practice -->
+    <section id="practice" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">5. Practice Missions</h2>
+      <p class="mb-2">Try these mini‑quests to build confidence:</p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><span class="font-medium">Mission 1:</span> “Add a <code>/users</code> endpoint returning JSON”.</li>
+        <li><span class="font-medium">Mission 2:</span> “Write a Jest test for <code>/</code> route and make it pass”.</li>
+        <li><span class="font-medium">Mission 3:</span> “Refactor server to TypeScript”. Approve the auto‑refactor.</li>
+        <li><span class="font-medium">Mission 4:</span> Turn on <code>-auto-edit</code> and ask Codex to apply Prettier formatting project‑wide.</li>
+      </ul>
+      <p class="mt-4">Commit after each mission: <code class="bg-slate-100 px-1 rounded">git commit -am "✅ mission X done"</code>.</p>
+    </section>
+
+    <!-- Cheatsheet -->
+    <section id="cheatsheet" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">6. Quick Cheatsheet</h2>
+      <div class="grid sm:grid-cols-2 gap-6 text-sm bg-white p-6 rounded shadow">
+        <div>
+          <h3 class="font-semibold mb-2">Common Commands</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><code>codex</code> – interactive chat</li>
+            <li><code>codex -full-auto "prompt"</code> – one‑shot automation</li>
+            <li><code>codex --upgrade</code> – update CLI</li>
+            <li><code>git diff</code> – review AI edits</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Prompt Starters</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>“Explain what this repo does.”</li>
+            <li>“Add dark‑mode CSS to the site.”</li>
+            <li>“Fix the failing tests.”</li>
+            <li>“Search web for the best caching lib and integrate it.”</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section id="next" class="scroll-mt-20">
+      <h2 class="text-xl font-semibold mb-4">7. Next Steps</h2>
+      <p>🎯 Pair Codex with GUI editors like <a href="https://cursor.sh" class="underline" target="_blank" rel="noopener">Cursor</a> or <a href="https://windsurf.dev" class="underline" target="_blank" rel="noopener">Windsurf</a> for the best of both worlds. Explore additional MCP servers (GitHub, PostgreSQL, Google Maps) to tailor Codex to your domain.</p>
+      <p class="mt-4">Happy vibe coding! 🚀</p>
+    </section>
+  </main>
+
+  <footer class="bg-slate-100 py-6 mt-20 text-center text-xs text-slate-500">
+    Built with 🧠 + 💜 by AI — Last updated Apr 18 2025
+  </footer>
+</body>
+</html>
